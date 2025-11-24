@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Военный склад — Главный экран</title>
+    <style>
+        body {font-family: Arial, sans-serif; background: #0b1a2e; color: #e0e0e0; margin: 0; padding: 20px;}
+        h1 {color: #ff4444; text-align: center; text-shadow: 0 0 10px #ff0000;}
+        .container {max-width: 1200px; margin: 0 auto;}
+        .stats {display: flex; justify-content: space-around; margin: 30px 0; flex-wrap: wrap;}
+        .card {background: #1a2b40; padding: 20px; border-radius: 10px; width: 280px; text-align: center; margin: 10px; box-shadow: 0 0 15px rgba(255,0,0,0.3);}
+        .critical {border: 3px solid #ff0000; animation: pulse 2s infinite;}
+        .low {border: 2px solid #ff8800;}
+        @keyframes pulse {0% {box-shadow: 0 0 15px rgba(255,0,0,0.3);} 50% {box-shadow: 0 0 30px rgba(255,0,0,0.8);} 100% {box-shadow: 0 0 15px rgba(255,0,0,0.3);}}
+        table {width: 100%; border-collapse: collapse; margin-top: 20px;}
+        th, td {padding: 12px; border: 1px solid #444; text-align: center;}
+        th {background: #ff4444; color: white;}
+        .critical-row {background: #440000 !important; color: #ffaaaa;}
+        a {color: #ff8844; text-decoration: none; font-weight: bold;}
+        a:hover {text-decoration: underline;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>ВОЕННЫЙ СКЛАД — ЦЕНТРАЛЬНЫЙ КОНТРОЛЬ</h1>
+    <p style="text-align:center;"><a href="/admin/">Админ-панель →</a></p>
+
+    <div class="stats">
+        <div class="card {% if total_weapons < 50000 %}critical{% elif total_weapons < 80000 %}low{% endif %}">
+            <h2>{{ total_weapons|default:"0" }}</h2>
+            <p>Единиц оружия на складе</p>
+        </div>
+        <div class="card {% if ammo.quantity <= ammo.critical_threshold %}critical{% endif %}">
+            <h2>{{ ammo.quantity|default:"0" }}</h2>
+            <p>Патронов всего</p>
+        </div>
+        <div class="card critical">
+            <h2>{{ critical_weapons.count }}</h2>
+            <p>Позиций с критическим остатком</p>
+        </div>
+    </div>
+
+    <h2>Оружие на складе</h2>
+    <table>
+        <tr>
+            <th>Модель</th>
+            <th>Категория</th>
+            <th>Поставщик</th>
+            <th>Остаток</th>
+            <th>Статус</th>
+        </tr>
+        {% for w in weapons %}
+        <tr {% if w.quantity <= w.critical_threshold %}class="critical-row"{% endif %}>
+            <td>{{ w.model }}</td>
+            <td>{{ w.category }}</td>
+            <td>{{ w.supplier|default:"—" }}</td>
+            <td>{{ w.quantity }}</td>
+            <td>
+                {% if w.quantity == 0 %}НЕТ
+                {% elif w.quantity <= w.critical_threshold %}КРИТИЧЕСКИ МАЛО!
+                {% else %}В наличии{% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

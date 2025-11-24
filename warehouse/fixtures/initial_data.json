@@ -1,0 +1,30 @@
+[
+  {
+    "model": "warehouse.weaponcategory",
+    "fields": { "code": "ШВ", "name": "Штурмовые винтовки" }
+  },
+  {
+    "model": "warehouse.weaponcategory",
+    "fields": { "code": "ПП", "name": "Пистолеты-пулемёты" }
+  },
+  {
+    "model": "warehouse.weaponcategory",
+    "fields": { "code": "РП", "name": "Ручные пулемёты" }
+  },
+  {
+    "model": "warehouse.weaponcategory",
+    "fields": { "code": "СВ", "name": "Снайперские винтовки" }
+  },
+  {
+    "model": "warehouse.supplier",
+    "fields": { "name": "Guns World", "country": "США" }
+  },
+  {
+    "model": "warehouse.supplier",
+    "fields": { "name": "USSR Military", "country": "СССР" }
+  },
+  {
+    "model": "warehouse.supplier",
+    "fields": { "name": "Deth Fabric", "country": "Германия" }
+  }
+]
