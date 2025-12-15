@@ -88,3 +88,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# После успешного входа через пользовательскую панель — сразу на дашборд
+LOGIN_REDIRECT_URL = '/'
+
+# После выхода — обратно на страницу входа
+LOGOUT_REDIRECT_URL = '/login/'

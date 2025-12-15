@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+    <style>
+        body{background:#0b1a2e;color:#e0e0e0;font-family:Arial, sans-serif;padding:20px}
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:10px;border:1px solid #333}
+        th{background:#ff4444;color:#fff}
+        a{color:#ffdd44}
+        .actions a{margin-right:10px}
+    </style>
+</head>
+<body>
+<h1>Пользователи</h1>
+<p><a href="{% url 'dashboard' %}">← Назад на дашборд</a></p>
+<table>
+    <tr><th>Имя</th><th>Логин</th><th>Почта</th><th>Группы</th><th>Действия</th></tr>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.get_full_name|default:'—' }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.email|default:'—' }}</td>
+        <td>{% for g in u.groups.all %}{{ g.name }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</td>
+        <td class="actions">
+            <a href="{% url 'impersonate' u.id %}">Войти как</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

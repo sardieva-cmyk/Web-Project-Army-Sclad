@@ -23,22 +23,27 @@
 <body>
 <div class="container">
     <h1>ВОЕННЫЙ СКЛАД — ЦЕНТРАЛЬНЫЙ КОНТРОЛЬ</h1>
-    <p style="text-align:center;"><a href="/admin/">Админ-панель →</a></p>
+    <div style="text-align:center; margin: 20px 0; padding: 15px; background: #1a2b40; border-radius: 10px; border: 2px solid #ff4444;">
+    <strong>ДОСТУП РАЗРЕШЁН:</strong> 
+    <span style="color:#ffaa44; font-size:18px;">
+        {{ user.get_full_name|default:user.username }}
+    </span>
+    
+    {% if user.is_staff or user.is_superuser %}
+        <span style="margin:0 15px; color:#ffaa44;">|</span>
+        <a href="/admin/" style="color:#ffdd44; font-weight:bold; text-decoration:underline;">
+            КОМАНДНАЯ ПАНЕЛЬ (АДМИН)
+        </a>
+    {% endif %}
+    
+    <span style="margin:0 15px; color:#ffaa44;">|</span>
+    <a href="{% url 'logout' %}" style="color:#ff6666; font-weight:bold;">ВЫЙТИ ИЗ СИСТЕМЫ</a>
+</div>
 
-    <div class="stats">
-        <div class="card {% if total_weapons < 50000 %}critical{% elif total_weapons < 80000 %}low{% endif %}">
-            <h2>{{ total_weapons|default:"0" }}</h2>
-            <p>Единиц оружия на складе</p>
-        </div>
-        <div class="card {% if ammo.quantity <= ammo.critical_threshold %}critical{% endif %}">
-            <h2>{{ ammo.quantity|default:"0" }}</h2>
-            <p>Патронов всего</p>
-        </div>
-        <div class="card critical">
-            <h2>{{ critical_weapons.count }}</h2>
-            <p>Позиций с критическим остатком</p>
-        </div>
-    </div>
+<div style="text-align:center; margin: 30px 0;">
+    <a href="{% url 'export_excel' %}" style="margin: 0 20px; padding: 12px 25px; background: #006600; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">ЭКСПОРТ В EXCEL</a>
+    <a href="{% url 'export_pdf' %}" style="margin: 0 20px; padding: 12px 25px; background: #880000; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">ЭКСПОРТ В PDF</a>
+</div>
 
     <h2>Оружие на складе</h2>
     <table>

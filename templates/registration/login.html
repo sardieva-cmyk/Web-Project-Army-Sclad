@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в систему — Военный склад</title>
+    <style>
+        body {
+            background: #0b1a2e;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            background: #1a2b40;
+            padding: 40px;
+            border-radius: 15px;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255,0,0,0.6);
+            border: 2px solid #ff4444;
+        }
+        h2 {
+            color: #ff4444;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            background: #112240;
+            border: 1px solid #ff4444;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background: #ff4444;
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        button:hover {background: #ff6666;}
+        .error {color: #ff8888; margin-top: 15px; font-weight: bold;}
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <h2>ВХОД В СИСТЕМУ</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Логин" required autofocus>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">ВОЙТИ</button>
+    </form>
+    {% if form.errors %}
+        <p class="error">Неверный логин или пароль!</p>
+    {% endif %}
+</div>
+</body>
+</html>
