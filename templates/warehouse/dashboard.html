@@ -37,7 +37,12 @@
     {% endif %}
     
     <span style="margin:0 15px; color:#ffaa44;">|</span>
-    <a href="{% url 'logout' %}" style="color:#ff6666; font-weight:bold;">ВЫЙТИ ИЗ СИСТЕМЫ</a>
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; cursor:pointer; color:#ff6666; font-weight:bold; font-size:16px; padding:0; text-transform:uppercase;">
+        ВЫЙТИ ИЗ СИСТЕМЫ
+    </button>
+</form>
 </div>
 
 <div style="text-align:center; margin: 30px 0;">
